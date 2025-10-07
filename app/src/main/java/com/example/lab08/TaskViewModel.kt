@@ -6,14 +6,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-
 class TaskViewModel(private val dao: TaskDao) : ViewModel() {
-
 
     // Estado para la lista de tareas
     private val _tasks = MutableStateFlow<List<Task>>(emptyList())
     val tasks: StateFlow<List<Task>> = _tasks
-
 
     init {
         // Al inicializar, cargamos las tareas de la base de datos
@@ -21,7 +18,6 @@ class TaskViewModel(private val dao: TaskDao) : ViewModel() {
             _tasks.value = dao.getAllTasks()
         }
     }
-
 
     // Función para añadir una nueva tarea
     fun addTask(description: String) {
@@ -32,7 +28,6 @@ class TaskViewModel(private val dao: TaskDao) : ViewModel() {
         }
     }
 
-
     // Función para alternar el estado de completado de una tarea
     fun toggleTaskCompletion(task: Task) {
         viewModelScope.launch {
@@ -41,7 +36,6 @@ class TaskViewModel(private val dao: TaskDao) : ViewModel() {
             _tasks.value = dao.getAllTasks() // Recargamos la lista
         }
     }
-
 
     // Función para eliminar todas las tareas
     fun deleteAllTasks() {
